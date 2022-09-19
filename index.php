@@ -39,5 +39,5 @@ $mysql->updateRow('test', 9,'rrr', 'hhh', 1);
 //
 //    mysqli_close($connect);
 //} catch (Exception $e) {
-//    echo 'Ошибка:  Невозможно подключиться к MySQL ' . mysqli_connect_error() . PHP_EOL;
+//    echo 'Ошибка: Невозможно подключиться к MySQL ' . mysqli_connect_error() . PHP_EOL;
 //}
