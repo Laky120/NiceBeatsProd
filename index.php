@@ -11,9 +11,9 @@ $mysql = new MySQL(new mysqli());
 
 //$items = $mysql->getAll('test');
 //$elem = $mysql->getById('test', 5);
-//$mysql->insertRow('test','eee' ,'www', '1');
-//$mysql->deleteRow('test', 4);
-$mysql->updateRow('test', 9,'rrr', 'hhh', 1);
+//$mysql->create('test','eee' ,'www', '1');
+//$mysql->delete('test', 4);
+$mysql->update('test', 9,'rrr', 'hhh', 1);
 
 //try {
 //    $connect = mysqli_connect('localhost', 'root', '', 'test');

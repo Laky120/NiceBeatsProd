@@ -41,7 +41,6 @@ class MySQL
      * @description Получаем данные по id
      *
      * @param string $tableName
-     *
      * @param int $id
      *
      * @return array
@@ -57,14 +56,13 @@ class MySQL
      * @description Добавляем новые строки в таблицу
      *
      * @param string $tableName
-     *
      * @param string $name
-     *
      * @param string $surname
-     *
      * @param int $status
+     *
+     * @return void
      */
-    public function insertRow(string $tableName, string $name, string $surname, int $status): void
+    public function create(string $tableName, string $name, string $surname, int $status): void
     {
         $this->mysqli
             ->query("INSERT INTO `" . $tableName . "`(`name`, `surname`, `status`) VALUES ('" . $name . "', '" . $surname . "', '" . $status . "')");
@@ -74,10 +72,11 @@ class MySQL
      * @description Удаляем строки из таблицы по id
      *
      * @param string $tableName
-     *
      * @param int $id
+     *
+     * @return void
      */
-    public function deleteRow(string $tableName, int $id): void
+    public function delete(string $tableName, int $id): void
     {
         $this->mysqli
             ->query('DELETE FROM `' . $tableName . '` WHERE `id` = ' . $id);
@@ -87,16 +86,14 @@ class MySQL
      * @description Обновляем данные в строках по id
      *
      * @param string $tableName
-     *
      * @param int $id
-     *
      * @param string $name
-     *
      * @param  string $surname
-     *
      * @param int $status
+     *
+     * @return void
      */
-    public function updateRow(string $tableName, int $id, string $name, string $surname, int $status): void
+    public function update(string $tableName, int $id, string $name, string $surname, int $status): void
     {
         $this->mysqli
             ->query("UPDATE `" . $tableName . "` SET `name`='" . $name . "', `surname`='" . $surname . "', `status`='" . $status . "' WHERE `id` =" . $id);
