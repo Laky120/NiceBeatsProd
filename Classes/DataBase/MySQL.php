@@ -43,4 +43,22 @@ class MySQL
             ->query('SELECT * FROM `' . $tableName . '` WHERE `id` = ' . $id)
             ->fetch_array(MYSQLI_ASSOC);
     }
+
+    public function insertRow(string $tableName, string $name, string $surname, int $status): void
+    {
+        $this->mysqli
+            ->query("INSERT INTO `" . $tableName . "`(`name`, `surname`, `status`) VALUES ('" . $name . "', '" . $surname . "', '" . $status . "')");
+    }
+
+    public function deleteRow(string $tableName, int $id): void
+    {
+        $this->mysqli
+            ->query('DELETE FROM `' . $tableName . '` WHERE `id` = ' . $id);
+    }
+
+    public function updateRow(string $tableName, int $id, string $name, string $surname, int $status): void
+    {
+        $this->mysqli
+            ->query("UPDATE `" . $tableName . "` SET `name`='" . $name . "', `surname`='" . $surname . "', `status`='" . $status . "' WHERE `id` =" . $id);
+    }
 }

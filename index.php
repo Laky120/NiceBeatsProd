@@ -9,9 +9,12 @@ use mysqli;
 
 $mysql = new MySQL(new mysqli());
 
-$items = $mysql->getAll('test');
-$elem = $mysql->getById('test', 5);
-var_dump($elem);
+//$items = $mysql->getAll('test');
+//$elem = $mysql->getById('test', 5);
+//$mysql->insertRow('test','eee' ,'www', '1');
+//$mysql->deleteRow('test', 4);
+$mysql->updateRow('test', 9,'rrr', 'hhh', 1);
+
 //try {
 //    $connect = mysqli_connect('localhost', 'root', '', 'test');
 //
@@ -23,15 +26,15 @@ var_dump($elem);
 //
 //        var_dump($items);
 //
-        foreach ($items as $item) {
-            if (isset($item['id'], $item['name'], $item['surname'], $item['status'])) {
-                echo
-                    'ID: ' . $item['id'] .
-                    ' | Name: ' . $item['name'] .
-                    ' | Surname: ' . $item['surname'] .
-                    ' | Status: ' . ($item['status'] ? 'Active' : 'Not active') . PHP_EOL;
-            }
-        }
+//        foreach ($items as $item) {
+//            if (isset($item['id'], $item['name'], $item['surname'], $item['status'])) {
+//                echo
+//                    'ID: ' . $item['id'] .
+//                    ' | Name: ' . $item['name'] .
+//                    ' | Surname: ' . $item['surname'] .
+//                    ' | Status: ' . ($item['status'] ? 'Active' : 'Not active') . PHP_EOL;
+//            }
+//        }
 //    }
 //
 //    mysqli_close($connect);
