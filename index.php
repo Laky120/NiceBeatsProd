@@ -8,14 +8,14 @@ use Classes\DataBase\MySQL;
 use mysqli;
 
 $mysql = new MySQL(new mysqli());
-$arr = [
+$newRow = [
     "name" => "akakii",
     "surname" => "jopovich",
     "status" => "1",
 ];
 //$items = $mysql->getAll('test');
 //$elem = $mysql->getById('test', 5);
-$mysql->create('test', $arr);
+$mysql->create('test', $newRow);
 //$mysql->delete('test', 4);
 //$mysql->update('test', 9,'rrr', 'hhh', 1);
 //var_dump(implode('", "', $arr));

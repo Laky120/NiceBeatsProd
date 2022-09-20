@@ -53,19 +53,21 @@ class MySQL
     }
 
     /**
-     * @description Добавляем новые строки в таблицу
+     * @description Добавляем новые строки в выбранную таблицу
      *
      * @param string $tableName
-     * @param string $name
-     * @param string $surname
-     * @param int $status
+     * @param array $newRow
      *
      * @return void
      */
-    public function create(string $tableName, array $arr): void
+    public function create(string $tableName, array $newRow): void
     {
+        $imlodeArrayKyes = implode("`, `", array_keys($newRow));
+        $imlodeArray = implode("', '", $newRow);
+        $query = ("INSERT INTO `" . $tableName . "`( `". $imlodeArrayKyes ."`) VALUES ('" . $imlodeArray . "')");
         $this->mysqli
-            ->query("INSERT INTO `" . $tableName . "`( `". implode("`, `", array_keys($arr)) ."`) VALUES ('" . implode("', '", $arr) . "')");
+            ->query($query);
+
     }
 
     /**
