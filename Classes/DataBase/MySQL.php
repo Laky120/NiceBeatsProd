@@ -56,14 +56,14 @@ class MySQL
      * @description Добавляем новые строки в выбранную таблицу
      *
      * @param string $tableName
-     * @param array $newRow
+     * @param array $createData
      *
      * @return void
      */
-    public function create(string $tableName, array $data): void
+    public function create(string $tableName, array $createData): void
     {
-        $fields = implode("`, `", array_keys($data));
-        $values = implode("', '", $data);
+        $fields = implode("`, `", array_keys($createData));
+        $values = implode("', '", $createData);
         $query = ("INSERT INTO `" . $tableName . "`( `". $fields ."`) VALUES ('" . $values . "')");
         $this->mysqli
             ->query($query);
@@ -87,30 +87,28 @@ class MySQL
     /**
      * @description Обновляем данные в строках по id
      *
+     * @param array $updateData
      * @param string $tableName
-     * @param int $id
-     * @param string $name
-     * @param string $surname
-     * @param int $status
      *
      * @return void
      */
 
-    public function update(string $tableName, array $dataChange, int $id): void
+    public function update(string $tableName, array $updateData): void
     {
 
-        $fields = implode(",", array_keys($dataChange));
-        $values = implode(",", $dataChange);
-        $fieldsArr = explode(",", $fields);
-        $valuesArr = explode(",", $values);
-
-        for ($i=0; $i<count($fieldsArr);$i++)
-            {
-                $records[] = "`".$fieldsArr[$i]."` = '".$valuesArr[$i]."'";
+        if(isset($updateData["id"])){
+            $id = $updateData["id"];
+            unset($updateData["id"]);
+            foreach ($updateData as $key => $value){
+                $records[] = "`".$key."` = '".$value."'";
             }
-        $allRecords = implode(", ", $records);
-        $query = ("UPDATE `" . $tableName . "` SET ". $allRecords ." WHERE `id` = " . $id);
-        $this->mysqli->query($query);
+            $allRecords = implode(", ", $records);
+            $query = ("UPDATE `" . $tableName . "` SET ". $allRecords ." WHERE `id` = " . $id);
+            $this->mysqli->query($query);
+        }
+        else {
+            echo "пшл нах, введи id";
+        }
     }
 
 }
