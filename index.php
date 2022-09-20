@@ -8,13 +8,19 @@ use Classes\DataBase\MySQL;
 use mysqli;
 
 $mysql = new MySQL(new mysqli());
-
+$arr = [
+    "name" => "akakii",
+    "surname" => "jopovich",
+    "status" => "1",
+];
 //$items = $mysql->getAll('test');
 //$elem = $mysql->getById('test', 5);
-//$mysql->create('test','eee' ,'www', '1');
+$mysql->create('test', $arr);
 //$mysql->delete('test', 4);
-$mysql->update('test', 9,'rrr', 'hhh', 1);
-
+//$mysql->update('test', 9,'rrr', 'hhh', 1);
+//var_dump(implode('", "', $arr));
+//var_dump($arr);
+//print_r(implode("`, `", array_keys($arr)));
 //try {
 //    $connect = mysqli_connect('localhost', 'root', '', 'test');
 //

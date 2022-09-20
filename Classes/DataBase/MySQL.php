@@ -62,10 +62,10 @@ class MySQL
      *
      * @return void
      */
-    public function create(string $tableName, string $name, string $surname, int $status): void
+    public function create(string $tableName, array $arr): void
     {
         $this->mysqli
-            ->query("INSERT INTO `" . $tableName . "`(`name`, `surname`, `status`) VALUES ('" . $name . "', '" . $surname . "', '" . $status . "')");
+            ->query("INSERT INTO `" . $tableName . "`( `". implode("`, `", array_keys($arr)) ."`) VALUES ('" . implode("', '", $arr) . "')");
     }
 
     /**
@@ -88,7 +88,7 @@ class MySQL
      * @param string $tableName
      * @param int $id
      * @param string $name
-     * @param  string $surname
+     * @param string $surname
      * @param int $status
      *
      * @return void
