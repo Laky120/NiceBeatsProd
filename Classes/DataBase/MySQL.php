@@ -60,11 +60,11 @@ class MySQL
      *
      * @return void
      */
-    public function create(string $tableName, array $newRow): void
+    public function create(string $tableName, array $data): void
     {
-        $imlodeArrayKyes = implode("`, `", array_keys($newRow));
-        $imlodeArray = implode("', '", $newRow);
-        $query = ("INSERT INTO `" . $tableName . "`( `". $imlodeArrayKyes ."`) VALUES ('" . $imlodeArray . "')");
+        $fields = implode("`, `", array_keys($data));
+        $values = implode("', '", $data);
+        $query = ("INSERT INTO `" . $tableName . "`( `". $fields ."`) VALUES ('" . $values . "')");
         $this->mysqli
             ->query($query);
 
@@ -95,9 +95,22 @@ class MySQL
      *
      * @return void
      */
-    public function update(string $tableName, int $id, string $name, string $surname, int $status): void
+
+    public function update(string $tableName, array $dataChange, int $id): void
     {
-        $this->mysqli
-            ->query("UPDATE `" . $tableName . "` SET `name`='" . $name . "', `surname`='" . $surname . "', `status`='" . $status . "' WHERE `id` =" . $id);
+
+        $fields = implode(",", array_keys($dataChange));
+        $values = implode(",", $dataChange);
+        $fieldsArr = explode(",", $fields);
+        $valuesArr = explode(",", $values);
+
+        for ($i=0; $i<count($fieldsArr);$i++)
+            {
+                $records[] = "`".$fieldsArr[$i]."` = '".$valuesArr[$i]."'";
+            }
+        $allRecords = implode(", ", $records);
+        $query = ("UPDATE `" . $tableName . "` SET ". $allRecords ." WHERE `id` = " . $id);
+        $this->mysqli->query($query);
     }
+
 }
