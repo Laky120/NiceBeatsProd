@@ -64,7 +64,7 @@ class MySQL
     {
         $fields = implode("`, `", array_keys($createData));
         $values = implode("', '", $createData);
-        $query = ("INSERT INTO `" . $tableName . "`( `". $fields ."`) VALUES ('" . $values . "')");
+        $query = "INSERT INTO `" . $tableName . "`( `". $fields ."`) VALUES ('" . $values . "')";
         $this->mysqli
             ->query($query);
 
@@ -87,27 +87,24 @@ class MySQL
     /**
      * @description Обновляем данные в строках по id
      *
-     * @param array $updateData
+     * @param array $data
      * @param string $tableName
      *
      * @return void
      */
 
-    public function update(string $tableName, array $updateData): void
+    public function update(string $tableName, array $data): void
     {
 
-        if(isset($updateData["id"])){
-            $id = $updateData["id"];
-            unset($updateData["id"]);
-            foreach ($updateData as $key => $value){
-                $records[] = "`".$key."` = '".$value."'";
+        if(isset($data["id"])){
+            $id = $data["id"];
+            unset($data["id"]);
+            foreach ($data as $key => $value){
+                $values[] = "`".$key."` = '".$value."'";
             }
-            $allRecords = implode(", ", $records);
-            $query = ("UPDATE `" . $tableName . "` SET ". $allRecords ." WHERE `id` = " . $id);
+            $values = implode(", ", $values);
+            $query = "UPDATE `" . $tableName . "` SET ". $values ." WHERE `id` = " . $id;
             $this->mysqli->query($query);
-        }
-        else {
-            echo "пшл нах, введи id";
         }
     }
 

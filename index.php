@@ -62,17 +62,17 @@ function getAll2($tableName): void
 
 //------------------------------------------------------------------------------------
 $createData = [
-    "name" => "proverka",
-    "surname" => "321",
+    "name" => "oper",
+    "surname" => "style",
     "status" => 1
 ];
 //create($mysql, 'test', $createData); /* Создай элемент с заданными значениями в таблице */
 
 //------------------------------------------------------------------------------------
 $updateData = [
-    "id" => 45,
-    "name" => "tipdryam",
-    "surname" => "tochnovin",
+    "id" => 46,
+    "name" => "omon",
+    "surname" => "228",
     "status" => 1
 ];
 //update($mysql, 'test', $updateData); /* Обнови элемент с новыми заданными значениями в таблице */
