@@ -3,6 +3,7 @@
 namespace Classes\DataBase;
 
 use mysqli;
+use PDO;
 
 class MySQL
 {
@@ -12,100 +13,150 @@ class MySQL
     private const DATABASE = 'test';
 
     /**
-     * @var mysqli $mysqli - объект класса mysqli
+     * @var PDO $builder - объект класса PDO
      */
-    private mysqli $mysqli;
+    private PDO $builder;
+    private string $query;
 
 
-    public function __construct(mysqli $mysqli)
+    public function __construct()
     {
-        $this->mysqli = $mysqli;
-        $this->mysqli->connect(self::HOSTNAME, self::USERNAME, self::PASSWORD, self::DATABASE);
+        $this->builder = new PDO('mysql:host=' . self::HOSTNAME . ';dbname=' . self::DATABASE, self::USERNAME, self::PASSWORD);
     }
-
     /**
-     * @description Получаем все данные
+     * @description Начало запроса
      *
-     * @param string $tableName
-     *
-     * @return array
+     * @return MySQL
      */
-    public function getAll(string $tableName): array
+    public function createQueryBuilder(): MySQL
     {
-        return $this->mysqli
-            ->query('SELECT * FROM `' . $tableName . '`')
-            ->fetch_all(MYSQLI_ASSOC);
+        $this->query = "";
+        return $this;
     }
-
     /**
-     * @description Получаем данные по id
+     * @description Выбирает какие колонки выведет запрос
      *
-     * @param string $tableName
-     * @param int $id
+     * @param array $fields
      *
-     * @return array
+     * @return MySQL
      */
-    public function getById(string $tableName, int $id): array
+    public function select(array $fields = []): MySQL
     {
-        return $this->mysqli
-            ->query('SELECT * FROM `' . $tableName . '` WHERE `id` = ' . $id)
-            ->fetch_array(MYSQLI_ASSOC);
+        $query = "SELECT " . ($fields
+                ? implode(", ", $fields)
+                : "*");
+        $this->query .= $query;
+        return $this;
     }
-
     /**
-     * @description Добавляем новые строки в выбранную таблицу
-     *
-     * @param string $tableName
-     * @param array $createData
-     *
-     * @return void
-     */
-    public function create(string $tableName, array $createData): void
-    {
-        $fields = implode("`, `", array_keys($createData));
-        $values = implode("', '", $createData);
-        $query = "INSERT INTO `" . $tableName . "`( `". $fields ."`) VALUES ('" . $values . "')";
-        $this->mysqli
-            ->query($query);
-
-    }
-
-    /**
-     * @description Удаляем строки из таблицы по id
-     *
-     * @param string $tableName
-     * @param int $id
-     *
-     * @return void
-     */
-    public function delete(string $tableName, int $id): void
-    {
-        $this->mysqli
-            ->query('DELETE FROM `' . $tableName . '` WHERE `id` = ' . $id);
-    }
-
-    /**
-     * @description Обновляем данные в строках по id
+     * @description Добовляет новые записи
      *
      * @param array $data
+     *
+     * @return MySQL
+     */
+    public function insert(array $data): MySQL
+    {
+        if (isset($data['tableName'])) {
+            $tableName = $data['tableName'];
+            unset($data['tableName']);
+        }
+        $fields = implode(", ", array_keys($data));
+        $values = implode("', '", $data);
+        $query = "INSERT INTO " . $tableName . " (" . $fields . ") VALUES ('" . $values . "')";
+        $this->query .= $query;
+        return $this;
+    }
+    /**
+     * @description Удаляет записи
+     *
+     * @return MySQL
+     */
+    public function delete(): MySQL
+    {
+        $query = "DELETE";
+        $this->query .= $query;
+        return $this;
+    }
+    /**
+     * @description Обновляет записи
+     *
+     * @param array $data
+     *
+     * @return MySQL
+     */
+    public function update(array $data): MySQL
+    {
+        if (isset($data['tableName'])) {
+            $tableName = $data['tableName'];
+            unset($data['tableName']);
+        }
+
+        foreach ($data as $key => $value) {
+            $records[] = " " . $key . " = '" . $value . "' ";
+        }
+        $records = implode(",", $records);
+        $query = "UPDATE " . $tableName . " SET " . $records;
+        $this->query .= $query;
+        return $this;
+    }
+    /**
+     * @description Выбирает в какой таблице будет производиться запрос
+     *
      * @param string $tableName
+     *
+     * @return MySQL
+     */
+    public function from(string $tableName): MySQL
+    {
+        $query = " FROM " . $tableName;
+        $this->query .= $query;
+        return $this;
+    }
+    /**
+     * @description Выбирает записи по id
+     *
+     * @param string $field
+     *
+     * @param string $operation
+     *
+     * @param mixed $value
+     *
+     * @return MySQL
+     */
+    public function where(string $field, string $operation, mixed $value): MySQL
+    {
+        $query = " WHERE " . $field . " " . $operation . " " . $value;
+        $this->query .= $query;
+        return $this;
+    }
+    /**
+     * @description Выполняет запрос и выводит результат запроса (все записи)
+     *
+     * @return array
+     */
+    public function all(): array
+    {
+        return $this->builder->query($this->query)->fetchAll(PDO::FETCH_ASSOC);
+    }
+    /**
+     * @description Выполняет запрос и выводит результат запроса (одна запись)
+     *
+     * @return array
+     */
+    public function first(): array
+    {
+        return $this->builder->query($this->query)->fetch(PDO::FETCH_ASSOC);
+    }
+    /**
+     * @description Выполняет запрос
      *
      * @return void
      */
-
-    public function update(string $tableName, array $data): void
+    public function exec(): void
     {
-
-        if(isset($data["id"])){
-            $id = $data["id"];
-            unset($data["id"]);
-            foreach ($data as $key => $value){
-                $values[] = "`".$key."` = '".$value."'";
-            }
-            $values = implode(", ", $values);
-            $query = "UPDATE `" . $tableName . "` SET ". $values ." WHERE `id` = " . $id;
-            $this->mysqli->query($query);
-        }
+        $this->builder->exec($this->query);
     }
+
 
 }
