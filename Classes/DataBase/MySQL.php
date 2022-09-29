@@ -149,7 +149,7 @@ class MySQL
         return $this->builder->query($this->query)->fetch(PDO::FETCH_ASSOC);
     }
     /**
-     * @description Выполняет запрос
+     * @description Выполняет  запрос
      *
      * @return void
      */
