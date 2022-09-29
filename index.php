@@ -11,8 +11,8 @@ $mysql = new MySQL;
 //    ->all();
 $createData = [
     'tableName' => 'test',
-    'name' => 'holly',
-    'surname' => 'days',
+    'name' => 'Rider',
+    'surname' => 'Fillovskii',
     'status' => 1
 ];
 
@@ -20,20 +20,20 @@ $createData = [
 //    ->insert($createData)
 //    ->exec();
 
-//$mysql->createQueryBuilder()
-//    ->delete()
-//    ->from('test')
-//    ->where('id', '=', 53)
-//    ->exec();
+$mysql->createQueryBuilder()
+    ->delete()
+    ->from('test')
+    ->where('id', '=', 54)
+    ->exec();
 
 $updateData = [
     'tableName' => 'test',
-    'name' => 'John',
-    'surname' => 'Sina',
+    'name' => 'Rider',
+    'surname' => 'Svorovskiii',
     'status' => 1
 ];
 
-$mysql->createQueryBuilder()
-    ->update($updateData)
-    ->where('id', '=', 52)
-    ->exec();
+//$mysql->createQueryBuilder()
+//    ->update($updateData)
+//    ->where('id', '=', 52)
+//    ->exec();
