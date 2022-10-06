@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Core\View;
+use App\Lib\Debug;
 
 class Router
 {

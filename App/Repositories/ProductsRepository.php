@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Main;
+use App\Models\Products;
 
-class MainRepository extends Repository
+class ProductsRepository extends Repository
 {
 
     public function __construct()
     {
-        $this->model = new Main;
+        $this->model = new Products;
         parent::__construct();
     }
 

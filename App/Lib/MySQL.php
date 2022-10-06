@@ -9,7 +9,7 @@ class MySQL
     private const HOSTNAME = 'localhost';
     private const USERNAME = 'root';
     private const PASSWORD = '';
-    private const DATABASE = 'test';
+    private const DATABASE = 'nicebeatsprod';
 
     /**
      * @var PDO $builder - объект класса PDO

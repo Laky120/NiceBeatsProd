@@ -10,11 +10,13 @@ function autoLoad($class) {
         require_once $path;
     }
 }
+// вынести в отдельный класс
 
 spl_autoload_register('autoLoad');
 
-session_start();
+//session_start();
 
 $router = new Router;
 $router -> run();
+
 

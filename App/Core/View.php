@@ -6,9 +6,9 @@ use App\Lib\Debug;
 
 class View
 {
-    public $path;
-    public $layout = 'default';
-    public $route;
+    public string $path;
+    public string $layout = 'default';
+    public array $route;
 
 
     public function __construct($route)
@@ -21,10 +21,8 @@ class View
     {
         $path = 'App/Views/' . $this->path . '.php';
         if (file_exists($path)) {
-            ob_start();
-            require_once $path;
-            $content = ob_get_clean();
             require_once 'App/Views/Layouts/' . $this->layout . '.php';
+            require_once $path;
         } else {
             View::errorCode(404);
         }
