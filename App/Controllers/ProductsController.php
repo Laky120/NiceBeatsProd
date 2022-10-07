@@ -8,6 +8,11 @@ use App\Repositories\ProductsRepository;
 class ProductsController extends Controller
 {
 
+    /**
+     * @description Делает запрос на  все данные из таблицы и задает название title
+     *
+     * @return void
+     */
     public function indexAction(): void
     {
         $repository = new ProductsRepository;
@@ -17,7 +22,24 @@ class ProductsController extends Controller
 
     }
 
+    /**
+     * @description Задает название title
+     *
+     * @return void
+     */
     public function createAction(): void
+    {
+
+        $this->view->render('Продукты');
+
+    }
+
+    /**
+     * @description Задает название title
+     *
+     * @return void
+     */
+    public function updateAction(): void
     {
 
         $this->view->render('Продукты');

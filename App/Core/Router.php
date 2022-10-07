@@ -7,7 +7,14 @@ use App\Lib\Debug;
 
 class Router
 {
+    /**
+     * @var array $routes - контроллеры и actions
+     */
     protected array $routes = [];
+
+    /**
+     * @var array $params - actions
+     */
     protected array $params = [];
 
     function __construct()
@@ -24,6 +31,11 @@ class Router
         $this->routes[$route] = $params;
     }
 
+    /**
+     * @description Ищет нужный контроллер
+     *
+     * @return bool
+     */
     public function match(): bool
     {
         $url = trim($_SERVER['REQUEST_URI'], '/');
@@ -36,6 +48,11 @@ class Router
         return false;
     }
 
+    /**
+     * @description Запускает контроллер
+     *
+     * @return void
+     */
     public function run(): void
     {
         if ($this->match())

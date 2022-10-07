@@ -1,28 +1,3 @@
-<?php
-
-use App\Lib\Debug;
-use App\Repositories\Repository;
-
-if (!isset($_SESSION)) {
-    session_start();
-    echo session_status();
-}
-
-$builder = new Repository;
-
-if (!empty($_POST)) {
-
-    $data = ['tableName' => 'products',
-        'name' => $_POST['inputName'],
-        'image' => $_POST['inputImage'],
-        'price' => $_POST['inputPrice'],
-        'description' => $_POST['inputDescription'],
-        'style_id' => $_POST['inputStyleId'],
-    ];
-
-    $builder->create($data);
-}
-?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -35,7 +10,6 @@ if (!empty($_POST)) {
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors, Alexey Golyagin">
     <meta name="docsearch:language" content="ru">
     <meta name="docsearch:version" content="5.0">
-    <title>Административная панель</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">

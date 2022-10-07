@@ -10,6 +10,12 @@ class Debug
 
     }
 
+    /**
+     * @description Простой дебагер, выводит значения переменных
+     *
+     * @param $data
+     * @return array
+     */
     public static function dd($data): array
     {
         echo '<pre>';

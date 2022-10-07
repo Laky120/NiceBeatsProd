@@ -1,16 +1,28 @@
 <?php
 
 use App\Lib\Debug;
+use App\Repositories\Repository;
 
-if (!isset($_SESSION)) {
-    session_start();
-    echo session_status();
+session_name('productsCreate');
+session_start();
+
+$builder = new Repository;
+
+if (!empty($_POST)) {
+
+    $data = ['tableName' => 'products',
+        'name' => $_POST['inputName'],
+        'image' => $_POST['inputImage'],
+        'price' => $_POST['inputPrice'],
+        'description' => $_POST['inputDescription'],
+        'style_id' => $_POST['inputStyleId'],
+    ];
+
+    $builder->create($data);
+
+    $_SESSION['data'][] = $data;
+    $_POST = [];
 }
-
-if (!empty($_SESSION['data'])){
-    Debug::dd($_POST);
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="ru" prefix="og: http://ogp.me/ns#">
@@ -23,7 +35,6 @@ if (!empty($_SESSION['data'])){
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors, Alexey Golyagin">
     <meta name="docsearch:language" content="ru">
     <meta name="docsearch:version" content="5.0">
-    <title>Бесплатный bootstrap 5 шаблон - Вход в систему</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
@@ -71,15 +82,58 @@ if (!empty($_SESSION['data'])){
     <h1 class="h3 mb-3 font-weight-normal">Пожалуйста введите данные</h1>
     <label for="inputName" class="sr-only">Name</label>
     <input type="text" name="inputName" class="form-control" placeholder="Name" required="" autofocus="">
+    </label>
     <label for="inputImage" class="sr-only">Image</label>
     <input type="text" name="inputImage" class="form-control" placeholder="Image" required="">
+    </label>
     <label for="inputPrice" class="sr-only">Price</label>
     <input type="number" name="inputPrice" class="form-control" placeholder="Price" required="">
+    </label>
     <label for="inputDescription" class="sr-only">Description</label>
     <input type="text" name="inputDescription" class="form-control" placeholder="Description" required="">
+    </label>
     <label for="inputStyleId" class="sr-only">Style id</label>
     <input type="number" name="inputStyleId" class="form-control" placeholder="Style id" required="">
+    </label>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Создать</button>
 </form>
+<h2>Вы уже создали записи со следующими значениями: </h2>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <?php
+            if (!empty($_SESSION['data'])) {
+                foreach ($_SESSION['data'] as $data) {
+                    if (isset($data['tableName'])) {
+                        unset($data['tableName']);
+                    }
+                    foreach ($data as $key => $item) {
+                        echo '<th>' . $key . '</th>';
+                    }
+                    break;
+                }
+            }
+            ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        if (!empty($_SESSION['data'])) {
+            foreach ($_SESSION['data'] as $data) {
+                if (isset($data['tableName'])) {
+                    unset($data['tableName']);
+                }
+                echo '<tr>';
+                foreach ($data as $key => $item) {
+                    echo '<td>' . $item . '</td>';
+                }
+                echo '</tr>';
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -6,8 +6,19 @@ use App\Lib\Debug;
 
 class View
 {
+    /**
+     * @var string $path - путь
+     */
     public string $path;
+
+    /**
+     * @var string $layout - шаблон
+     */
     public string $layout = 'default';
+
+    /**
+     * @var array $route - контроллер и action
+     */
     public array $route;
 
 
@@ -17,6 +28,13 @@ class View
         $this->path = $this->route['controller'] . '/' . $this->route['action'];
     }
 
+    /**
+     * @description Подключает шаблон и view
+     *
+     * @param $title
+     * @param $vars
+     * @return void
+     */
     public function render($title, $vars = []): void
     {
         $path = 'App/Views/' . $this->path . '.php';
@@ -28,12 +46,24 @@ class View
         }
     }
 
+    /**
+     * @description Перебрасывает на другую страницу
+     *
+     * @param $url
+     * @return void
+     */
     public function redirect($url): void
     {
         header('location: ' . $url);
         exit;
     }
 
+    /**
+     * @description Выводит страницу ошибки
+     *
+     * @param $code
+     * @return void
+     */
     public static function errorCode($code): void
     {
         $path = 'App/Views/Errors/' . $code . '.php';
