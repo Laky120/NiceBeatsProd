@@ -39,8 +39,7 @@ class View
     {
         $path = 'App/Views/' . $this->path . '.php';
         if (file_exists($path)) {
-            require_once 'App/Views/Layouts/' . $this->layout . '.php';
-            require_once $path;
+            require_once 'App/Views/Templates/Admin/template.php';
         } else {
             View::errorCode(404);
         }

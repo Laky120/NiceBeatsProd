@@ -38,13 +38,17 @@ class Repository
     /**
      * @description Делает запрос на вывод одного элемента из таблицы
      *
+     * @param $field
+     * @param $operation
+     * @param $value
      * @return array
      */
-    public function getOne(): array
+    public function getOne($field, $operation, $value): array
     {
         return $this->builder->createQueryBuilder()
             ->select()
             ->from($this->model->getTableName())
+            ->where($field, $operation, $value)
             ->first();
     }
 

@@ -41,9 +41,19 @@ return [
         'action' => 'index',
     ],
 
+    'products/new' => [
+        'controller' => 'products',
+        'action' => 'new',
+    ],
+
     'products/create' => [
         'controller' => 'products',
         'action' => 'create',
+    ],
+
+    'roles/new' => [
+        'controller' => 'roles',
+        'action' => 'new',
     ],
 
     'roles/create' => [
@@ -51,9 +61,19 @@ return [
         'action' => 'create',
     ],
 
+    'styles/new' => [
+        'controller' => 'styles',
+        'action' => 'new',
+    ],
+
     'styles/create' => [
         'controller' => 'styles',
         'action' => 'create',
+    ],
+
+    'productsofuser/new' => [
+        'controller' => 'productsofuser',
+        'action' => 'new',
     ],
 
     'productsofuser/create' => [
@@ -61,9 +81,24 @@ return [
         'action' => 'create',
     ],
 
+    'users/new' => [
+        'controller' => 'users',
+        'action' => 'new',
+    ],
+
     'users/create' => [
         'controller' => 'users',
         'action' => 'create',
+    ],
+
+    'products/select' => [
+        'controller' => 'products',
+        'action' => 'select',
+    ],
+
+    'products/edit' => [
+        'controller' => 'products',
+        'action' => 'edit',
     ],
 
     'products/update' => [
@@ -71,9 +106,19 @@ return [
         'action' => 'update',
     ],
 
+    'roles/edit' => [
+        'controller' => 'roles',
+        'action' => 'edit',
+    ],
+
     'roles/update' => [
         'controller' => 'roles',
         'action' => 'update',
+    ],
+
+    'styles/edit' => [
+        'controller' => 'styles',
+        'action' => 'edit',
     ],
 
     'styles/update' => [
@@ -81,14 +126,29 @@ return [
         'action' => 'update',
     ],
 
+    'productsofuser/edit' => [
+        'controller' => 'productsofuser',
+        'action' => 'edit',
+    ],
+
     'productsofuser/update' => [
         'controller' => 'productsofuser',
         'action' => 'update',
     ],
 
+    'users/edit' => [
+        'controller' => 'users',
+        'action' => 'edit',
+    ],
+
     'users/update' => [
         'controller' => 'users',
         'action' => 'update',
+    ],
+
+    'tables/index' => [
+        'controller' => 'tables',
+        'action' => 'index',
     ],
 
 ];

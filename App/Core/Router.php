@@ -38,7 +38,8 @@ class Router
      */
     public function match(): bool
     {
-        $url = trim($_SERVER['REQUEST_URI'], '/');
+        $url = strtok($_SERVER['REQUEST_URI'], '?');
+        $url = trim($url, '/');
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
                 $this->params = $params;
@@ -55,14 +56,11 @@ class Router
      */
     public function run(): void
     {
-        if ($this->match())
-        {
+        if ($this->match()) {
             $path = 'App\Controllers\\' . ucfirst($this->params['controller']) . 'Controller';
-            if (class_exists($path))
-            {
+            if (class_exists($path)) {
                 $action = $this->params['action'] . 'Action';
-                if (method_exists($path, $action))
-                {
+                if (method_exists($path, $action)) {
                     $controller = new $path($this->params);
                     $controller->$action();
                 } else {
