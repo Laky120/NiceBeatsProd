@@ -15,7 +15,7 @@ class ProductsController extends Controller
      *
      * @return void
      */
-    public function indexAction(): void
+    public function getAllAction(): void
     {
         $repository = new ProductsRepository();
         $vars = $repository->getAll();
@@ -30,9 +30,16 @@ class ProductsController extends Controller
      */
     public function createAction(): void
     {
+        $data = ['tableName' => 'products',
+            'name' => $_POST['name'],
+            'image' => $_POST['image'],
+            'price' => $_POST['price'],
+            'description' => $_POST['description'],
+            'style_id' => $_POST['style_id'],
+        ];
 
-        $this->view->render('Продукты');
-
+        $repository = new ProductsRepository();
+        $repository->create($data);
     }
 
     /**
@@ -80,11 +87,11 @@ class ProductsController extends Controller
 
             $repository = new ProductsRepository();
             $data = $repository->getOne('id', '=', $_GET['id']);
-            foreach ($data as $key => $item){
-                $params[] = $key.'='.$item;
+            foreach ($data as $key => $item) {
+                $params[] = $key . '=' . $item;
             }
-            $params = implode('&',$params);
-            $this->view->redirect('/products/update'.'/?'.$params);
+            $params = implode('&', $params);
+            $this->view->redirect('/products/update' . '/?' . $params);
         }
 
     }

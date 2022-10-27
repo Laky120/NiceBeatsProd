@@ -31,24 +31,24 @@ require_once "App/Views/Templates/Admin/mini-header.php";
             <form action="create" class="form" method="post">
                 <h1 class="h3 mb-3 font-weight-normal">Пожалуйста введите данные</h1>
                 <div class="input-wrapper">
-                    <input type="text" name="inputName" class="form-control" placeholder="Name" required=""
+                    <input type="text" name="inputName" class="form-control" placeholder="Name" required="" id="name"
                            autofocus="">
                 </div>
                 <div class="input-wrapper">
-                    <input type="text" name="inputImage" class="form-control" placeholder="Image" required="">
+                    <input type="text" name="inputImage" class="form-control" placeholder="Image" required="" id="image">
                 </div>
                 <div class="input-wrapper">
-                    <input type="number" name="inputPrice" class="form-control" placeholder="Price" required="">
+                    <input type="number" name="inputPrice" class="form-control" placeholder="Price" required="" id="price">
                 </div>
                 <div class="input-wrapper">
-                    <input type="text" name="inputDescription" class="form-control" placeholder="Description"
+                    <input type="text" name="inputDescription" class="form-control" placeholder="Description" id="description"
                            required="">
                 </div>
                 <div class="input-wrapper">
-                    <input type="number" name="inputStyleId" class="form-control" placeholder="Style id" required="">
+                    <input type="number" name="inputStyleId" class="form-control" placeholder="Style id" required="" id="style_id">
                 </div>
                 <div class="button-wrapper">
-                    <button class="btn btn-lg btn-primary" type="submit">Создать</button>
+                    <button class="btn btn-lg btn-primary" type="submit" id="button">Создать</button>
                 </div>
             </form>
         </div>
@@ -100,3 +100,5 @@ require_once "App/Views/Templates/Admin/mini-header.php";
 <!--        </div>-->
 <!--    </section>-->
 </main>
+<script src="/Resources/Scripts/products-create.js"></script>
+

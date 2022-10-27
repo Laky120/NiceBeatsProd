@@ -1,5 +1,5 @@
 <?php
-
+// TODO: адаптировать под REST CRUD
 return [
     '' => [
         'controller' => 'main',

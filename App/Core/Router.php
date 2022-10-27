@@ -17,9 +17,14 @@ class Router
      */
     protected array $params = [];
 
+    /**
+     * @var int $id - id элемента таблицы
+     */
+    protected int $id;
+
     function __construct()
     {
-        $arr = require_once 'App/Config/Routes.php';
+        $arr = require_once 'App/Config/RoutesNew.php';
         foreach ($arr as $key => $val) {
             $this->add($key, $val);
         }
@@ -39,10 +44,20 @@ class Router
     public function match(): bool
     {
         $url = strtok($_SERVER['REQUEST_URI'], '?');
+        $elements = explode('/', $url);
+        $end = array_pop($elements);
+        $key = '';
+        if (is_numeric($end)){
+            $this->id = $end;
+            $url = implode('/',$elements);
+            $key = '{id}';
+        }
+
         $url = trim($url, '/');
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
-                $this->params = $params;
+
+                $this->params = $params[$key][$_SERVER['REQUEST_METHOD']];
                 return true;
             }
         }
@@ -56,6 +71,7 @@ class Router
      */
     public function run(): void
     {
+
         if ($this->match()) {
             $path = 'App\Controllers\\' . ucfirst($this->params['controller']) . 'Controller';
             if (class_exists($path)) {
@@ -64,13 +80,13 @@ class Router
                     $controller = new $path($this->params);
                     $controller->$action();
                 } else {
-                    View::errorCode(404);
+//                    View::errorCode(404);
                 }
             } else {
-                View::errorCode(404);
+//                View::errorCode(404);
             }
         } else {
-            View::errorCode(404);
+//            View::errorCode(404);
         }
     }
 }

@@ -1,0 +1,55 @@
+.logo {
+    width: 100%;
+    height: 45px;
+    object-fit: cover;
+}
+
+.tables {
+    margin: 10px;
+}
+
+.tables-item {
+    padding-bottom: 5px;
+}
+
+.name-list {
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
+
+.my-table {
+    margin: auto;
+    justify-content: center;
+    width: 80em;
+}
+
+.name-table {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.my-form {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.name-table-2 {
+    margin: 30px;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.input-wrapper {
+    margin-bottom: 5px;
+}
+
+.my-logo {
+    margin-right: 25px;
+}
+

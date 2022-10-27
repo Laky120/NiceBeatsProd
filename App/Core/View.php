@@ -41,7 +41,7 @@ class View
         if (file_exists($path)) {
             require_once 'App/Views/Templates/Admin/template.php';
         } else {
-            View::errorCode(404);
+//            View::errorCode(404);
         }
     }
 

@@ -42,5 +42,6 @@
     ?>
 </div>
 <script src="/Resources/Scripts/scripts-admin.js"></script>
+<script src="/Resources/Scripts/jquery-3.6.1.min.js"></script>
 </body>
 </html>
